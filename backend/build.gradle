@@ -1,0 +1,48 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.0.M4'
+        gradleNodeVersion = '1.2.0'
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+    }
+}
+
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
+
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+//idea {
+//    module {
+//        inheritOutputDirs = false
+//        outputDir = file("${buildDir}/classes/main/")
+//    }
+//}
+
+
+bootRun.dependsOn(':frontend:buildClientDev')
+jar.dependsOn(':frontend:buildClient')
+
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-data-neo4j'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+
+    compileOnly 'org.projectlombok:lombok'
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}

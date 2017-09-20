@@ -1,0 +1,49 @@
+ Java Generated
+*.class
+*.jar
+*.war
+*.ear
+
+
+# Gradle
+*/.gradle/
+*/bin/
+*/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+
+# Compiler
+*/targer/
+*/out/
+
+
+# IntelliJ Generated
+*/.idea/
+*.iws
+*.iml
+*.ipr
+
+
+# Front End Dependency Generated
+*/frontend/.sass-cache/
+*/frontend/bower_components/
+*/frontend/dist/
+*/frontend/node/
+*/frontend/node/*
+*/frontend/npm-debug.log
+*/frontend/.tscache/
+*/frontend/scss/.tmp/
+*/frontend/js/lib/
+*/frontend/typings/
+*/frontend/coverage/
+*/dist/
+*/node_modules/
+
+
+# compiled output
+*/tmp/
+*/out-tsc/
+
+
+# System Files
+Thumbs.db

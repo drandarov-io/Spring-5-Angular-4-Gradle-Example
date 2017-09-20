@@ -1,0 +1,3 @@
+rootProject.name = 'spring5_angular4_demo'
+
+include 'frontend', 'backend'
