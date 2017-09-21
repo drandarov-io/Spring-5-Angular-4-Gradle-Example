@@ -34,8 +34,12 @@ targetCompatibility = 1.8
 //}
 
 
-bootRun.dependsOn(':frontend:buildClientDev')
-jar.dependsOn(':frontend:buildClient')
+task bootStandaloneBackend {
+    group 'application'
+    dependsOn bootRun
+}
+
+jar.dependsOn(':client:buildClient')
 
 
 dependencies {

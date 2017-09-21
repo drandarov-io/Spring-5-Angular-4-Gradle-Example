@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @SpringBootApplication
 @RestController
+@RequestMapping("api")
 public class AngularBootApplication {
     public static void main(String[] args) {
         SpringApplication.run(AngularBootApplication.class, args);

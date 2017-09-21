@@ -1,4 +1,4 @@
-group = 'com.example'
+group = 'com.dmitrijdrandarov'
 version = '0.0.1-SNAPSHOT'
 
 
@@ -11,14 +11,26 @@ allprojects {
 }
 
 
+//------------------------------------------------------------------------------------------------------------------------
+//    Whole application
+//------------------------------------------------------------------------------------------------------------------------
+
+task bootApplication {
+    group 'application'
+    dependsOn ':client:clean', ':client:buildClientDev', ':backend:bootRun'
+}
+
 task clean {
-    group = 'application'
-//    dependsOn(":frontend:cleanDist")
+    group = 'build'
 }
 
 
+//------------------------------------------------------------------------------------------------------------------------
+//    Init
+//------------------------------------------------------------------------------------------------------------------------
+
 task wrapper(type: Wrapper) {
-    group = 'application_setup'
+    group = 'init'
     gradleVersion = '4.1'
     distributionType = 'ALL'
 }

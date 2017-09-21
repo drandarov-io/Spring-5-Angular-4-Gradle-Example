@@ -1,0 +1,92 @@
+buildscript {
+    ext {
+        gradleNodeVersion = '1.2.0'
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+
+    dependencies {
+        classpath "com.moowork.gradle:gradle-node-plugin:$gradleNodeVersion"
+    }
+}
+
+
+
+apply plugin: 'com.moowork.node'
+
+
+//------------------------------------------------------------------------------------------------------------------------
+//    NodeJS Setup
+//------------------------------------------------------------------------------------------------------------------------
+
+node {
+    version = '8.5.0'
+    npmVersion = '5.4.2'
+    download = true
+    workDir = file("${rootDir}/client/node")
+    nodeModulesDir = file("${rootDir}/client")
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------
+//    Clean tasks
+//------------------------------------------------------------------------------------------------------------------------
+
+task clean() {
+    group 'build client'
+    dependsOn 'cleanDist'
+}
+
+task cleanDist(type: Delete) {
+    group = 'build client'
+    delete "${rootDir}/client/dist", "${rootDir}/backend/src/main/resources/static"
+}
+
+task cleanNpm(type: Delete) {
+    group = 'build client'
+    delete "${rootDir}/client/node", "${rootDir}/client/node_modules"
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------
+//    Prod tasks
+//------------------------------------------------------------------------------------------------------------------------
+
+task serveClient(type: NpmTask, dependsOn: npmInstall) {
+    group = 'build client'
+    description = "Compile client side folder for production"
+    args = ['start']
+}
+
+task buildClient(type: NpmTask, dependsOn: npmInstall) {
+    group = 'build client'
+    description = 'Compile client side folder for development'
+    args = ['run', 'build']
+}
+
+task bootStandaloneClient {
+    group = 'application'
+    dependsOn clean, buildClient, serveClient
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------
+//    Dev tasks
+//------------------------------------------------------------------------------------------------------------------------
+
+task buildClientDev(type: NpmTask, dependsOn: npmInstall) {
+    group = 'build client'
+    description = 'Compile client side folder for development'
+    args = ['run', 'buildDev']
+}
+
+task buildClientDevWatch(type: NpmTask, dependsOn: npmInstall) {
+    group = 'build client'
+    description = "Build and watches the client side assets for rebuilding"
+    args = ['run', 'buildWatch']
+}
