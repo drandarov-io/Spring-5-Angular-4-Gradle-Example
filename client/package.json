@@ -6,8 +6,8 @@
     "ng": "ng",
     "start": "ng serve --proxy-config proxy-dev.json",
     "build": "ng build --op=dist --prod",
-    "buildDev": "ng build --op=='../backend/src/main/resources/static'",
-    "buildDevWatch": "ng build --op='../backend/src/main/resources/static' --watch=true",
+    "buildDev": "ng build",
+    "buildDevWatch": "ng build --watch=true",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

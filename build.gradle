@@ -15,9 +15,9 @@ allprojects {
 //    Whole application
 //------------------------------------------------------------------------------------------------------------------------
 
-task bootApplication {
-    group 'application'
-    dependsOn ':client:clean', ':client:buildClientDev', ':backend:bootRun'
+task bootApplication(type: GradleBuild) {
+    group = 'application'
+    tasks = [':client:clean', ':client:buildClientDev', ':backend:bootRun']
 }
 
 task clean {

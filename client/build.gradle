@@ -69,9 +69,9 @@ task buildClient(type: NpmTask, dependsOn: npmInstall) {
     args = ['run', 'build']
 }
 
-task bootStandaloneClient {
+task bootStandaloneClient(type: GradleBuild) {
     group = 'application'
-    dependsOn clean, buildClient, serveClient
+    tasks = [clean, buildClient, serveClient]
 }
 
 
