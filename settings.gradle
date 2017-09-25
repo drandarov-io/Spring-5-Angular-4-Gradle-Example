@@ -1,5 +1,4 @@
 rootProject.name = 'spring_5_angular_4_example'
 
 include 'client',
-        'backend:rest-api',
-        'backend:git-extractor'
+        'backend'
