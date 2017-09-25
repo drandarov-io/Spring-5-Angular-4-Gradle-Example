@@ -1,0 +1,22 @@
+= Spring 5 + Angular 4 configured and managed by Gradle
+Dmitrij Drandarov <https://github.com/dmitrij-drandarov>
+:imagesdir: images
+:toc:
+
+== Authors
+
+* Dmitrij Drandarov | link:https://github.com/dmitrij-drandarov[GitHub] | link:https://www.xing.com/profile/Dmitrij_Drandarov[Xing]
+
+== Gradle
+
+- All-In-One
+* `gradle bootFullApplication`
+- Standalone
+* `gradle bootStandaloneClient`
+* `gradle bootStandaloneBackend`
+
+== IntelliJ Run Configuration
+
+image::intellij_client_configuration.png[]
+image::intellij_compound_configuration.png[]
+Then you may put it in a Compound Build-Configuration
