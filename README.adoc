@@ -17,9 +17,9 @@ Dmitrij Drandarov <https://github.com/dmitrij-drandarov>
 
 == IntelliJ Run Configuration
 
-.NPM Run Configuration for Client
+==== NPM Run Configuration for Client
 image::intellij_client_configuration.png[]
 You may then put it in a Compound Build-Configuration:
 
-.Compound Configuration
+==== Compound Configuration
 image::intellij_compound_configuration.png[]
