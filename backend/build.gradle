@@ -1,14 +1,11 @@
 buildscript {
     ext {
         springBootVersion = '2.0.0.M4'
-        gradleNodeVersion = '1.2.0'
     }
 
     repositories {
         mavenCentral()
-        maven { url "https://repo.spring.io/snapshot" }
         maven { url "https://repo.spring.io/milestone" }
-        maven { url "https://plugins.gradle.org/m2/" }
     }
 
     dependencies {
@@ -17,30 +14,50 @@ buildscript {
 }
 
 
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'java'
 
+//------------------------------------------------------------------------------------------------------------------------
+//    Plugins - Application
+//------------------------------------------------------------------------------------------------------------------------
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'java'
+apply plugin: 'war'
+
+//------------------------------------------------------------------------------------------------------------------------
+//    Plugins - Configuration
+//------------------------------------------------------------------------------------------------------------------------
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+war {
+    baseName = 'spring5_angular4_demo'
+    version =  '1.0'
+    manifest {
+        attributes 'Main-Class': 'angularboot.AngularBootApplication'
+    }
+}
 
-//idea {
-//    module {
-//        inheritOutputDirs = false
-//        outputDir = file("${buildDir}/classes/main/")
-//    }
-//}
 
+
+//------------------------------------------------------------------------------------------------------------------------
+//    Tasks - Standalone backend
+//------------------------------------------------------------------------------------------------------------------------
 
 task bootStandaloneBackend {
     group 'application'
     dependsOn bootRun
 }
 
-jar.dependsOn(':client:buildClient')
+jar.dependsOn ':client:buildClientToSpring'
+war.dependsOn ':client:buildClientToSpring'
 
+
+
+//------------------------------------------------------------------------------------------------------------------------
+//    Dependencies
+//------------------------------------------------------------------------------------------------------------------------
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-data-neo4j'

@@ -1,3 +1,4 @@
-rootProject.name = 'spring5_angular4_demo'
+rootProject.name = 'spring_5_angular_4_example'
 
-include 'client', 'backend'
+include 'client',
+        'backend'

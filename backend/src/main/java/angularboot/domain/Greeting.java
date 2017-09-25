@@ -1,4 +1,4 @@
-package angularboot;
+package angularboot.domain;
 
 public class Greeting {
     String id;

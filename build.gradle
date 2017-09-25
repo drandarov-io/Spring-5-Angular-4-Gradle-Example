@@ -2,6 +2,7 @@ group = 'com.dmitrijdrandarov'
 version = '0.0.1-SNAPSHOT'
 
 
+
 allprojects {
     repositories {
         mavenCentral()
@@ -11,26 +12,22 @@ allprojects {
 }
 
 
+
 //------------------------------------------------------------------------------------------------------------------------
-//    Whole application
+//    Tasks - Application
 //------------------------------------------------------------------------------------------------------------------------
 
-task bootApplication(type: GradleBuild) {
-    group = 'application'
-    tasks = [':client:clean', ':client:buildClientDev', ':backend:bootRun']
+task bootFullApplication(type: GradleBuild) {
+    group 'application'
+    setTasks([':client:npmUpdate', ':client:clean', ':client:buildClientToSpring', ':backend:bootRun'])
 }
 
-task clean {
-    group = 'build'
-}
-
-
 //------------------------------------------------------------------------------------------------------------------------
-//    Init
+//    Tasks - Init project
 //------------------------------------------------------------------------------------------------------------------------
 
 task wrapper(type: Wrapper) {
-    group = 'init'
-    gradleVersion = '4.1'
-    distributionType = 'ALL'
+    group 'init'
+    gradleVersion '4.2'
+    distributionType Wrapper.DistributionType.ALL
 }

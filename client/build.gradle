@@ -5,8 +5,6 @@ buildscript {
 
     repositories {
         mavenCentral()
-        maven { url "https://repo.spring.io/snapshot" }
-        maven { url "https://repo.spring.io/milestone" }
         maven { url "https://plugins.gradle.org/m2/" }
     }
 
@@ -17,11 +15,14 @@ buildscript {
 
 
 
+//------------------------------------------------------------------------------------------------------------------------
+//    Plugins - Application
+//------------------------------------------------------------------------------------------------------------------------
+
 apply plugin: 'com.moowork.node'
 
-
 //------------------------------------------------------------------------------------------------------------------------
-//    NodeJS Setup
+//    Plugin configuration
 //------------------------------------------------------------------------------------------------------------------------
 
 node {
@@ -33,60 +34,67 @@ node {
 }
 
 
+
 //------------------------------------------------------------------------------------------------------------------------
-//    Clean tasks
+//    Tasks - NPM
 //------------------------------------------------------------------------------------------------------------------------
 
-task clean() {
+task clean(type: Delete) {
     group 'build client'
-    dependsOn 'cleanDist'
-}
-
-task cleanDist(type: Delete) {
-    group = 'build client'
     delete "${rootDir}/client/dist", "${rootDir}/backend/src/main/resources/static"
 }
 
 task cleanNpm(type: Delete) {
-    group = 'build client'
+    group 'build client'
+    dependsOn 'clean'
     delete "${rootDir}/client/node", "${rootDir}/client/node_modules"
 }
 
+task npmUpdate {
+    group 'build client'
+    dependsOn 'npm_update'
+}
 
 //------------------------------------------------------------------------------------------------------------------------
-//    Prod tasks
+//    Tasks - Standalone client
 //------------------------------------------------------------------------------------------------------------------------
 
-task serveClient(type: NpmTask, dependsOn: npmInstall) {
-    group = 'build client'
+task buildStandaloneClient(type: NpmTask, dependsOn: npmInstall) {
+    group 'build client'
+    description = 'Compile client side folder for development'
+    args = ['run', 'buildStandalone']
+}
+
+task buildStandaloneClientWatch(type: NpmTask, dependsOn: npmInstall) {
+    group 'build client'
+    description = "Build and watches the client side assets for rebuilding"
+    args = ['run', 'buildStandaloneWatch']
+}
+
+task serveStandaloneClient(type: NpmTask, dependsOn: npmInstall) {
+    group 'build client'
     description = "Compile client side folder for production"
     args = ['start']
 }
 
-task buildClient(type: NpmTask, dependsOn: npmInstall) {
-    group = 'build client'
-    description = 'Compile client side folder for development'
-    args = ['run', 'build']
-}
-
 task bootStandaloneClient(type: GradleBuild) {
-    group = 'application'
-    tasks = [clean, buildClient, serveClient]
+    group 'application'
+    setTasks(['clean', 'buildStandaloneClient', 'serveStandaloneClient'])
+//    finalizedBy 'npm_shutdown'
 }
 
+task bootStandaloneClientWatch(type: GradleBuild) {
+    group 'application'
+    setTasks(['clean', 'buildStandaloneClientWatch', 'serveStandaloneClient'])
+//    finalizedBy 'npm_shutdown'
+}
 
 //------------------------------------------------------------------------------------------------------------------------
-//    Dev tasks
+//    Tasks - Integrated client
 //------------------------------------------------------------------------------------------------------------------------
 
-task buildClientDev(type: NpmTask, dependsOn: npmInstall) {
-    group = 'build client'
+task buildClientToSpring(type: NpmTask, dependsOn: npmInstall) {
+    group 'build client'
     description = 'Compile client side folder for development'
-    args = ['run', 'buildDev']
-}
-
-task buildClientDevWatch(type: NpmTask, dependsOn: npmInstall) {
-    group = 'build client'
-    description = "Build and watches the client side assets for rebuilding"
-    args = ['run', 'buildWatch']
+    args = ['run', 'buildToSpring']
 }
