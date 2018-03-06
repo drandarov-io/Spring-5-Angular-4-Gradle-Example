@@ -65,10 +65,10 @@ task buildStandaloneClient(type: NpmTask, dependsOn: npmInstall) {
     args = ['run', 'buildStandalone']
 }
 
-task buildStandaloneClientWatch(type: NpmTask, dependsOn: npmInstall) {
+task serveStandaloneClientWatch(type: NpmTask, dependsOn: npmInstall) {
     group 'build client'
-    description = "Build and watches the client side assets for rebuilding"
-    args = ['run', 'buildStandaloneWatch']
+    description = "Builds, serves and watches the client side assets for rebuilding"
+    args = ['run', 'serveStandaloneWatch']
 }
 
 task serveStandaloneClient(type: NpmTask, dependsOn: npmInstall) {
@@ -85,7 +85,7 @@ task bootStandaloneClient(type: GradleBuild) {
 
 task bootStandaloneClientWatch(type: GradleBuild) {
     group 'application'
-    setTasks(['clean', 'buildStandaloneClientWatch', 'serveStandaloneClient'])
+    setTasks(['clean', 'serveStandaloneClientWatch'])
 //    finalizedBy 'npm_shutdown'
 }
 

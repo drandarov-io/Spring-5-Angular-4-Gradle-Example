@@ -7,7 +7,7 @@
     "start": "ng serve --proxy-config proxy-dev.json",
     "buildProd": "ng build --prod",
     "buildStandalone": "ng build",
-    "buildStandaloneWatch": "ng build --watch=true",
+    "serveStandaloneWatch": "ng serve --proxy-config proxy-dev.json --watch=true",
     "buildToSpring": "ng build --op=../backend/src/main/resources/static",
     "test": "ng test",
     "lint": "ng lint",
